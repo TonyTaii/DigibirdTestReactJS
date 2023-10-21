@@ -6,7 +6,7 @@ import { v4 as uuid4 } from "uuid";
 import { addAddress } from "../recoil/addAddress";
 import { data } from "../recoil/atom";
 import { getCityList } from "../recoil/getCityList";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function AddAddress() {
   const cityList = useRecoilValue(getCityList);
   const [province, setProvince] = useState("Chọn tỉnh/thành phố");
@@ -18,7 +18,7 @@ function AddAddress() {
   const dataGet = useRecoilValue(fetchAllData);
   const [newData, setNewData] = useRecoilState(data);
   const [isDone,setIsDone]=useState(false)
-  const navigate = useNavigate();
+ 
   useEffect(() => {
     setNewData((data) => dataGet);
   }, [dataGet]);
@@ -67,6 +67,7 @@ function AddAddress() {
       zipcode: 4,
       country: "VN",
     });
+
     setIsDone(true);
     resetForm();
   };
@@ -278,14 +279,13 @@ function AddAddress() {
           >
             Lưu thông tin
           </button>
+          <Link to='/address'>
           <button
-             onClick={() => {
-              navigate('/address');
-            }}
+            
             className=" w-[150px]  text-black text-xl font-medium bg-[rgba(247,235,67,0.88)]   rounded-lg    m-6 mx-4 p-2 text-center"
           >
             Trở lại
-          </button>
+          </button></Link>
         </form>
       </div>
     </div>

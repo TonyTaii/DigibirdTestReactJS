@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { currentIdState } from "../recoil/atom";
 import { fetchAllData } from "../recoil/fetchAllData";
 function Address() {
   const data = useRecoilValue(fetchAllData)
-
+  console.log(data)
   const navigate = useNavigate();
   return (
     <div className="flex flex-col items-center w-full h-full gap-4 scroll-auto mb-4 ">

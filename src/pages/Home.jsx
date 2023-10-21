@@ -21,7 +21,7 @@ function Home() {
   };
 
   const handleOnSubmit = async (e) => {
-    e.preventDefault();
+   
 
     try {
       const response = await axios.post(
