@@ -1,11 +1,17 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { fetchAllData } from "../recoil/fetchAllData";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { fetchAllData, forceUpdateState } from "../recoil/fetchAllData";
+import { removeAddress } from "../recoil/removeAddress";
+
 function Address() {
   const data = useRecoilValue(fetchAllData)
+ 
   console.log(data)
   const navigate = useNavigate();
+  const dataUpdates = useSetRecoilState(forceUpdateState);
+  const forceUpdate=() => dataUpdates((n) => n + 1)
+ useEffect(forceUpdate,[])
   return (
     <div className="flex flex-col items-center w-full h-full gap-4 scroll-auto mb-4 ">
       <div className="font-bold text-center mt-2">Trang danh sách địa chỉ </div>
@@ -46,8 +52,10 @@ function Address() {
         >
           <div className="flex justify-between mb-3">
             <p className="font-bold">Họ và tên: {item.name}</p>{" "}
-            <a
-            // onClick={() => setCurrentId((id) => item.xid)}
+            <a onClick={
+              async ()=>{  removeAddress(item.xid).then((result)=>forceUpdate())
+           
+          }}
             >
               Xóa
             </a>
